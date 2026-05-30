@@ -1,51 +1,77 @@
 import { Link, useLocation } from 'react-router-dom'
 
 function Navbar() {
-  const location = useLocation()
-  const links = [{ to: '/', label: 'Chat' }, { to: '/tickets', label: 'Tickets' }]
+  const { pathname } = useLocation()
 
   return (
-    <nav style={{ borderBottom: '1px solid var(--border)', background: 'rgba(8,12,20,0.85)', backdropFilter: 'blur(20px)', position: 'sticky', top: 0, zIndex: 50 }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 24px', height: '64px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+    <header style={{
+      position: 'sticky', top: 0, zIndex: 100,
+      borderBottom: '1px solid var(--border)',
+      background: 'rgba(10,10,10,0.85)',
+      backdropFilter: 'blur(24px)',
+      WebkitBackdropFilter: 'blur(24px)',
+    }}>
+      <div style={{
+        maxWidth: '1200px', margin: '0 auto',
+        padding: '0 24px', height: '56px',
+        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      }}>
 
+        {/* Logo */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{ width: '34px', height: '34px', borderRadius: '10px', background: 'linear-gradient(135deg, #3b82f6, #6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 20px rgba(99,102,241,0.4)' }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          <div style={{
+            width: '32px', height: '32px', borderRadius: '10px',
+            background: 'linear-gradient(135deg, #4f8ef7 0%, #7c6af7 100%)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: '0 0 0 1px rgba(79,142,247,0.3), 0 4px 20px rgba(79,142,247,0.25)',
+            flexShrink: 0,
+          }}>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" fill="rgba(255,255,255,0.15)" stroke="none"/>
+              <circle cx="12" cy="12" r="3" fill="white" stroke="none"/>
+              <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="white" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           </div>
-          <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '17px', letterSpacing: '-0.3px' }}>
-            Smart<span style={{ color: '#3b82f6' }}>Desk</span>
+          <span style={{ fontWeight: 600, fontSize: '15px', letterSpacing: '-0.3px', color: 'var(--text-1)' }}>
+            Resolve<span style={{ color: 'var(--accent)' }}>IQ</span>
           </span>
         </div>
 
-        <div style={{ display: 'flex', gap: '4px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '12px', padding: '4px' }}>
-          {links.map(({ to, label }) => {
-            const active = location.pathname === to
+        {/* Nav */}
+        <nav style={{
+          display: 'flex', gap: '2px',
+          background: 'var(--surface)', border: '1px solid var(--border)',
+          borderRadius: '12px', padding: '3px',
+        }}>
+          {[{ to: '/', label: 'Chat' }, { to: '/tickets', label: 'Dashboard' }].map(({ to, label }) => {
+            const active = pathname === to
             return (
               <Link key={to} to={to} style={{
-                padding: '7px 20px', borderRadius: '9px', fontSize: '13px', fontWeight: 500,
-                textDecoration: 'none', transition: 'all 0.2s',
-                background: active ? 'linear-gradient(135deg, #3b82f6, #6366f1)' : 'transparent',
-                color: active ? 'white' : 'var(--text-secondary)',
-                boxShadow: active ? '0 4px 14px rgba(99,102,241,0.35)' : 'none',
+                padding: '6px 16px', borderRadius: '9px',
+                fontSize: '13px', fontWeight: 500, textDecoration: 'none',
+                transition: 'all 0.18s ease',
+                background: active ? 'var(--bg-3)' : 'transparent',
+                color: active ? 'var(--text-1)' : 'var(--text-2)',
+                border: active ? '1px solid var(--border-2)' : '1px solid transparent',
+                boxShadow: active ? '0 1px 3px rgba(0,0,0,0.3)' : 'none',
               }}>
                 {label}
               </Link>
             )
           })}
-        </div>
+        </nav>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div style={{ position: 'relative', width: '8px', height: '8px' }}>
-            <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: '#22c55e' }}></div>
-            <div style={{ position: 'absolute', inset: '-3px', borderRadius: '50%', background: 'rgba(34,197,94,0.3)', animation: 'pulse-ring 1.5s ease-out infinite' }}></div>
+        {/* Status */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+          <div style={{ position: 'relative', width: '7px', height: '7px' }}>
+            <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'var(--green)' }} />
+            <div style={{ position: 'absolute', inset: '-3px', borderRadius: '50%', background: 'rgba(61,214,140,0.4)', animation: 'pulseRing 2s ease-out infinite' }} />
           </div>
-          <span style={{ fontSize: '12px', color: 'var(--text-muted)', fontWeight: 500 }}>AI Online</span>
+          <span style={{ fontSize: '12px', color: 'var(--text-3)', fontWeight: 500 }}>Online</span>
         </div>
 
       </div>
-    </nav>
+    </header>
   )
 }
 

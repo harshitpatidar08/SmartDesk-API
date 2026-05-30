@@ -6,6 +6,7 @@ const connectDB = require("./config/db");
 
 const chatRoute = require("./routes/chat");
 const ticketRoute = require("./routes/ticket");
+const memoryRoute = require("./routes/memory");
 
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/chat" , chatRoute);
 app.use("/api/tickets" , ticketRoute);
+app.use("/api/memory" , memoryRoute);
 
 
 
